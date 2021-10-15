@@ -59,7 +59,7 @@ Expressao* AnaliseExpressao() {
         return res;
     }
 
-    if (t->tipo != TOKEN_ABREPAR) {
+    if (t->tipo != TOKEN_ABREPAR && t->tipo != TOKEN_ABRECOL) {
         fprintf(stderr, "Erro sintatico: '(' esperado");
         exit(2);
     }
@@ -70,12 +70,17 @@ Expressao* AnaliseExpressao() {
     // operador
     t = ProximoToken();
 
-    if (t->tipo != TOKEN_SOMA && t->tipo != TOKEN_MULT) {
+    if (t->tipo != TOKEN_SOMA && t->tipo != TOKEN_MULT && t->tipo != TOKEN_SUB && t->tipo != TOKEN_DIV) {
         fprintf(stderr, "Erro sintatico: operador esperado");
         exit(2);
     }
 
-    res->oper = (t->tipo == TOKEN_SOMA ? OPER_SOMA : OPER_MULT);
+    TipoToken tipoTemp = TOKEN_SOMA;
+
+    if (t->tipo == TOKEN_SOMA) res->oper = OPER_SOMA;
+    else if (t->tipo == TOKEN_MULT) res->oper = OPER_MULT;
+    else if (t->tipo == TOKEN_DIV) res->oper = OPER_DIV;
+    else res->oper = OPER_SUB;
 
     // segundo operando
     res->op2 = AnaliseExpressao();
@@ -83,7 +88,7 @@ Expressao* AnaliseExpressao() {
     // parentese fechando
     t = ProximoToken();
 
-    if (t->tipo != TOKEN_FECHAPAR) {
+    if (t->tipo != TOKEN_FECHAPAR && t->tipo != TOKEN_FECHACOL) {
         fprintf(stderr, "Erro sintatico: ')' esperado");
         exit(2);
     }
