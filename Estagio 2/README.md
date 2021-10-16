@@ -37,10 +37,25 @@ Exemplo 3:
 ```
 print (4 + (2 * 3))
 ```
-
 ## Estágio 2
 
-Mais operações.
+Mais operações - subtração e divisão.
+Adição da utilização de colchetes
+
+Exemplo 1:
+```
+print (99 - 88)
+```
+
+Exemplo 2:
+```
+print (10 / 5)
+```
+
+Exemplo 3:
+```
+print (40 - [2 * 3])
+```
 
 
 ## Estágio 3
